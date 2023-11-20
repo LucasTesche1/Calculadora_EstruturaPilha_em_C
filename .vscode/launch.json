@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Lucas Tesche/Desktop/testing",
-      "program": "c:/Users/Lucas Tesche/Desktop/testing/build/Debug/outDebug",
+      "cwd": "c:/Users/Beatriz/Desktop/Trabalho_Final_E.S/Trabalho_final_E.S",
+      "program": "c:/Users/Beatriz/Desktop/Trabalho_Final_E.S/Trabalho_final_E.S/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
