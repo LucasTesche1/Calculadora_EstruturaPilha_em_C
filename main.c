@@ -117,6 +117,7 @@
                     break;
                 case '^':
                     operando1 = desempilhar(&pilha);
+                    operando2 = desempilhar(&pilha);
                     empilhar(&pilha, pow(operando1, operando2));
                     break;
                 case 'r':
@@ -129,11 +130,11 @@
                     break;
                 case 's':
                     operando1 = desempilhar(&pilha);
-                    empilhar(&pilha, sin(operando1 * (M_PI / 180.0))); 
+                    empilhar(&pilha, sin(operando1)); 
                 break;
                 case 'c':
                     operando1 = desempilhar(&pilha);
-                    empilhar(&pilha, cos(operando1 * (M_PI / 180.0))); 
+                    empilhar(&pilha, cos(operando1));
                     break;
                 case 't':
                     operando1 = desempilhar(&pilha);                
@@ -183,22 +184,27 @@ void inverterString(char *str) {
             }
             else
             {
-
-                double operando1 = desempilhar(&pilha);
-                double operando2 = desempilhar(&pilha);
-
+                double operando1, operando2;
                 switch (token[0])
                 {
                 case '+':
+                    operando2 = desempilhar(&pilha);
+                    operando1 = desempilhar(&pilha);
                     empilhar(&pilha, operando1 + operando2);
                     break;
                 case '-':
+                    operando2 = desempilhar(&pilha);
+                    operando1 = desempilhar(&pilha);
                     empilhar(&pilha, operando1 - operando2);
                     break;
                 case '*':
+                    operando2 = desempilhar(&pilha);
+                    operando1 = desempilhar(&pilha);
                     empilhar(&pilha, operando1 * operando2);
                     break;
                 case '/':
+                    operando2 = desempilhar(&pilha);
+                    operando1 = desempilhar(&pilha);
                     if (operando2 != 0.0)
                     {
                         empilhar(&pilha, operando1 / operando2);
@@ -210,25 +216,32 @@ void inverterString(char *str) {
                     }
                     break;
                 case '^':
+                    operando1 = desempilhar(&pilha);
+                    operando2 = desempilhar(&pilha);
                     empilhar(&pilha, pow(operando1, operando2));
                     break;
-        case 'r':
-            empilhar(&pilha, sqrt_custom(operando1));
-            break;
-        case 'l':
-            empilhar(&pilha, log_custom(operando1));
-            break;
-                case 's':
-                    empilhar(&pilha, sin(operando1));
+                case 'r':
+                    operando1 = desempilhar(&pilha);
+                    empilhar(&pilha, sqrt_custom(operando1));
                     break;
+                case 'l':
+                    operando1 = desempilhar(&pilha);
+                    empilhar(&pilha, log_custom(operando1));
+                    break;
+                case 's':
+                    operando1 = desempilhar(&pilha);
+                    empilhar(&pilha, sin(operando1)); 
+                break;
                 case 'c':
+                    operando1 = desempilhar(&pilha);
                     empilhar(&pilha, cos(operando1));
                     break;
                 case 't':
-                    empilhar(&pilha, tan(operando1));
+                    operando1 = desempilhar(&pilha);                
+                    empilhar(&pilha, tan(operando1));  
                     break;
                 default:
-                    printf("Erro: Operador invalido\n");
+                    printf("Erro: Operador '%c' invalido\n", token[0]);
                     exit(EXIT_FAILURE);
                 }
             }
@@ -242,20 +255,20 @@ void inverterString(char *str) {
 
     int main()
     {
-        const char *expressaoPosfixada = "3 4 + 5 t *";
+        const char *expressaoPosfixada = "45 60 + 30 cos *";
         char *expressaoPosfixada_copy = strdup(expressaoPosfixada);
         double resultadoPosfixado = avaliarExpressaoPosfixada(expressaoPosfixada_copy);
 
-        printf("Resultado pos fixado: %.2f\n", resultadoPosfixado);
+        printf("Resultado pos fixado: %.3f\n", resultadoPosfixado);
 
         free(expressaoPosfixada_copy);
 
-        /*const char *expressaoPrefixada = "(3 + 4) * 5";
+        const char *expressaoPrefixada = "(3 + 4) * 5";
         double resultadoPrefixado = avaliarExpressaoPrefixada(expressaoPrefixada);
 
         printf("Resultado pre fixado: %f\n", resultadoPrefixado);
 
-        */
+        
 
         return 0;
     }
@@ -274,7 +287,7 @@ void inverterString(char *str) {
     */
 
    /*
-   TESTES COM ÊXITO: 1,2,3,4,10
+   TESTES COM ÊXITO: 1,2,3,4,5,6,7,8,9,10
 
-   TESTES COM PROBLEMAS: 
+   TESTES COM PROBLEMAS:
    */
