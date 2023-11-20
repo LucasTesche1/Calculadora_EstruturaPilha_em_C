@@ -274,7 +274,7 @@ void inverterString(char *str) {
     */
 
    /*
-   TESTES COM ÊXITO: 1,2,3,4
+   TESTES COM ÊXITO: 1,2,3,4,10
 
    TESTES COM PROBLEMAS: 
    */
