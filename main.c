@@ -154,7 +154,7 @@ void postfixToInfix(char *expression)
         token = strtok(NULL, " ");
     }
 
-    printf("Expressão Infixa: %s\n", operandStack.items[0]);
+    printf("Expressao Infixa: %s\n", operandStack.items[0]);
 }
 double avaliarExpressaoPosfixada(const char *expressao)
 {
