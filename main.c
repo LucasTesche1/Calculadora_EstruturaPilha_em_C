@@ -4,8 +4,6 @@
 #include <math.h>
 #include <string.h>
 
-#define MAX_SIZE 100
-
 typedef struct No
 {
     double dado;
@@ -19,7 +17,7 @@ typedef struct
 
 typedef struct
 {
-    char items[MAX_SIZE][100];
+    char items[100][100];
     int top;
 } Stack;
 
@@ -93,7 +91,7 @@ int isEmpty(Stack *stack)
 
 void push(Stack *stack, char *item)
 {
-    if (stack->top == MAX_SIZE - 1)
+    if (stack->top == 100 - 1)
     {
         printf("Erro: A pilha está cheia\n");
         exit(EXIT_FAILURE);
@@ -103,11 +101,7 @@ void push(Stack *stack, char *item)
 
 char *pop(Stack *stack)
 {
-    if (isEmpty(stack))
-    {
-        printf("Erro: A pilha está vazia\n");
-        exit(EXIT_FAILURE);
-    }
+
     return stack->items[stack->top--];
 }
 
@@ -125,6 +119,26 @@ void postfixToInfix(char *expression)
         {
             push(&operandStack, token);
         }
+        else if (strcmp(token, "sin") == 0 || strcmp(token, "cos") == 0 || strcmp(token, "tan") == 0)
+        {
+            char operand[100];
+            strcpy(operand, pop(&operandStack));
+
+            char temp[100];
+            sprintf(temp, "%s(%s)", token, operand);
+
+            push(&operandStack, temp);
+        }
+        else if (strcmp(token, "log") == 0)
+        {
+            char operand[100];
+            strcpy(operand, pop(&operandStack));
+
+            char temp[100];
+            sprintf(temp, "log(%s)", operand);
+
+            push(&operandStack, temp);
+        }
         else
         {
             char operand2[100], operand1[100];
@@ -132,14 +146,7 @@ void postfixToInfix(char *expression)
             strcpy(operand1, pop(&operandStack));
 
             char temp[100];
-            if (strcmp(token, "cos") == 0)
-            {
-                sprintf(temp, "%s(%s)", token, operand2);
-            }
-            else
-            {
-                sprintf(temp, "(%s %s %s)", operand1, token, operand2);
-            }
+            sprintf(temp, "(%s %s %s)", operand1, token, operand2);
 
             push(&operandStack, temp);
         }
@@ -149,7 +156,6 @@ void postfixToInfix(char *expression)
 
     printf("Expressão Infixa: %s\n", operandStack.items[0]);
 }
-
 double avaliarExpressaoPosfixada(const char *expressao)
 {
     Pilha pilha;
@@ -250,7 +256,7 @@ void inverterString(char *str)
 
 int main()
 {
-    const char *expressaoPosfixada = "3 4 + 5 tan *";
+    const char *expressaoPosfixada = "0.5 45 sen 2 ^ +";
     char *expressaoPosfixada_copy = strdup(expressaoPosfixada);
     double resultadoPosfixado = avaliarExpressaoPosfixada(expressaoPosfixada_copy);
 
@@ -258,7 +264,7 @@ int main()
 
     free(expressaoPosfixada_copy);
 
-    char expression[] = "3 4 + 5 tan *";
+    char expression[] = "0.5 45 sen 2 ^ +";
     postfixToInfix(expression);
 
     return 0;
